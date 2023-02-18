@@ -33,4 +33,5 @@ Route::middleware(['auth:sanctum', 'role:1'])->group(function () {
     Route::get('/categories/{category}', [CategoryController::class, 'show']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+
 });
