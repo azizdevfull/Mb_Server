@@ -47,7 +47,6 @@ class AuthController extends Controller
                 'message' => 'User Created Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
                 'email' => $user->email,
-                "role" => $user->role
             ], 200);
 
         } catch (\Throwable $th) {
