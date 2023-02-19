@@ -21,7 +21,7 @@ class AuthController extends Controller
     {
         try {
             //Validated
-            $validateUser = Validator::make($request->all(), 
+            $validateUser = Validator::make($request->all(),
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
@@ -45,7 +45,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+                'email' => $user->email,
+                "role" => $user->role
             ], 200);
 
         } catch (\Throwable $th) {
@@ -64,7 +66,7 @@ class AuthController extends Controller
     public function loginUser(Request $request)
     {
         try {
-            $validateUser = Validator::make($request->all(), 
+            $validateUser = Validator::make($request->all(),
             [
                 'email' => 'required|email',
                 'password' => 'required'
@@ -90,7 +92,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+                'email' => $user->email,
+                "role" => $user->role
             ], 200);
 
         } catch (\Throwable $th) {
@@ -108,7 +112,7 @@ class AuthController extends Controller
 
    // Get bearer token from the request
     $accessToken = $request->bearerToken();
-    
+
     // Get access token from database
     $token = PersonalAccessToken::findToken($accessToken);
 
